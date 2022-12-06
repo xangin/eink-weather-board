@@ -77,7 +77,9 @@ time:
       minutes: 1
 ```
 
-#### 2. 條件:  
+#### 2. 條件: 
+
+在HA設定>裝置與服務>助手>新增助手>"每日定時感測器">設定想要更新的時段，名稱填`eink_refresh_time`
 
 ```YAML
   condition:
