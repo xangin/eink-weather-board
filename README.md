@@ -24,8 +24,8 @@
 
 ## Installation 安裝方式
 
-1. 將`/fonts`資料夾及`e-ink-weather-board.yaml`放到HA/config/esphome的資料夾內
-2. 將`/package`內的`eink_dashboard_sensor.yaml`放到HA/config/package內
+1. 將`/fonts`資料夾內的檔案及`e-ink-weather-board.yaml`放到HA/config/esphome的資料夾內
+2. 將`eink_dashboard_sensor.yaml`放到HA/config/package內
 3. 將`/images`內的`background.png`放到HA/config/esphome/images的資料夾內
 3. 將`e-ink-weather-board.yaml`及`eink_dashboard_sensor.yaml`的內容修改成自己HA裡的實體ID，**解說在下方**
 4. HA檢查YAML code有無錯誤
