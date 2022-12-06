@@ -1,0 +1,349 @@
+substitutions:
+  device_name: eink-weather-board
+
+esphome:
+  name: eink-weather-board
+  platform: ESP32
+  board: esp32dev
+
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  #remeber add ota_password in your secret.yaml
+  password: !secret ota_password
+
+wifi:
+  networks:
+    - ssid: !secret my_ap_ssid
+      password: !secret my_ap_password
+      
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: ${device_name}
+    password: "12345678"
+    
+# Include custom fonts
+font:
+
+  - file: 'fonts/GothamRnd-Book.ttf'
+    id: font_year
+    size: 60
+    glyphs:    
+      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']       
+
+  - file: 'fonts/GothamRnd-Book.ttf'
+    id: font_month
+    size: 80
+    glyphs:    
+      ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+       'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 
+       'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+       'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+       's', 't', 'u', 'v', 'w', 'x', 'y', 'z']  
+
+  - file: 'fonts/GothamRnd-Bold.ttf'
+    id: font_day
+    size: 100
+    glyphs:
+      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+  - file: 'fonts/GothamRnd-Bold.ttf'
+    id: font_weekday
+    size: 70
+    glyphs: 
+      ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+       'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 
+       'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+       'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+       's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ']  
+
+  - file: 'fonts/materialdesignicons-webfont.ttf'
+    id: icon_today
+    size: 220
+    glyphs: &mdi-weather-glyphs
+      - "\U000F0590" # mdi-weather-cloudy
+      - "\U000F0F2F" # mdi-weather-cloudy-alert
+      - "\U000F0E6E" # mdi-weather-cloudy-arrow-right
+      - "\U000F0593" # mdi-weather-lightning
+      - "\U000F067E" # mdi-weather-lightning-rainy
+      - "\U000F0594" # mdi-weather-night
+      - "\U000F0F31" # mdi-weather-night-partly-cloudy      
+      - "\U000F0595" # mdi-weather-partly-cloudy
+      - "\U000F0F32" # mdi-weather-partly-lightning
+      - "\U000F0F33" # mdi-weather-partly-rainy
+      - "\U000F0596" # mdi-weather-pouring
+      - "\U000F0597" # mdi-weather-rainy
+      - "\U000F0599" # mdi-weather-sunny
+      - "\U000F0F37" # mdi-weather-sunny-alert
+      - "\U000F14E4" # mdi-weather-sunny-off
+      - "\U000F059A" # mdi-weather-sunset
+      - "\U000F059B" # mdi-weather-sunset-down
+      - "\U000F059C" # mdi-weather-sunset-up
+      - "\U000F059D" # mdi-weather-windy
+      - "\U000F059E" # mdi-weather-windy-variant
+  
+  #today temp
+  - file: 'fonts/GothamRnd-Bold.ttf'
+    id: font_today_temp
+    size: 70
+    glyphs:  
+      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '°', 'C', '%']   
+  
+  #forecast time & temp
+  - file: 'fonts/GothamRnd-Bold.ttf'
+    id: font_medium_bold
+    size: 40
+    glyphs:  
+      ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '°', 'A', 'M', 'P']
+  
+  #forecast icon
+  - file: 'fonts/materialdesignicons-webfont.ttf'
+    id: icon_forecast
+    size: 70
+    glyphs: *mdi-weather-glyphs
+
+  #update time
+  - file: 'fonts/GothamRnd-Book.ttf'
+    id: font_smallest
+    size: 12
+    glyphs:    
+      ['/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', ':']  
+
+# Include Background
+image:
+  - file: "images/background.png"
+    id: eink_pannel
+    type: BINARY
+
+
+time:
+  - platform: homeassistant
+    id: ha_time
+
+text_sensor:
+    
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    id: today_weather
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: today_temperature
+    id: today_temperature
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: today_humidity
+    id: today_humidity
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: today_precipitation
+    id: today_precipitation
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: forecast_weekday_1
+    id: forecast_weekday_1
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: forecast_condition_1
+    id: forecast_weather_1
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: forecast_temperature_1
+    id: forecast_temperature_1
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: forecast_weekday_2
+    id: forecast_weekday_2
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: forecast_condition_2
+    id: forecast_weather_2
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: forecast_temperature_2
+    id: forecast_temperature_2
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: forecast_weekday_3
+    id: forecast_weekday_3
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: forecast_condition_3
+    id: forecast_weather_3
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: forecast_temperature_3
+    id: forecast_temperature_3
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: forecast_weekday_4
+    id: forecast_weekday_4
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: forecast_condition_4
+    id: forecast_weather_4
+
+  - platform: homeassistant
+    entity_id: sensor.eink_sensors
+    attribute: forecast_temperature_4
+    id: forecast_temperature_4
+
+button:
+  - platform: template
+    name: '${device_name} Screen Refresh'
+    icon: 'mdi:update'
+    on_press:
+      then:
+        - component.update: 'my_display'
+    internal: false
+
+binary_sensor:  
+  - platform: status
+    name: "${device_name} WiFi Status"    
+
+color:
+  - id: color_black
+    red: 0%
+    green: 0%
+    blue: 0%
+    white: 50%
+  - id: color_white
+    red: 0%
+    green: 0%
+    blue: 0%
+    white: 0%
+
+
+# Pins for Waveshare ePaper ESP Board
+spi:
+  clk_pin: GPIO13
+  mosi_pin: GPIO14
+
+# Now render everything on the ePaper screen.
+display:
+  - platform: waveshare_epaper
+    cs_pin: GPIO15
+    dc_pin: GPIO27
+    busy_pin: GPIO25
+    reset_pin: GPIO26
+    model: 7.50inV2
+    update_interval: never
+    id: my_display
+    rotation: 270°
+    lambda: |-
+      // Map weather states to MDI characters.
+      std::map<std::string, std::string> weather_icon_map
+        {
+          {"cloudy", "\U000F0590"},
+          {"cloudy-alert", "\U000F0F2F"},
+          {"fog", "\U000F0591"},
+          {"hail", "\U000F0592"},
+          {"hazy", "\U000F0F30"},
+          {"lightning", "\U000F0593"},
+          {"lightning-rainy", "\U000F067E"},
+          {"clear-night", "\U000F0594"},
+          {"night-partly-cloudy", "\U000F0F31"},          
+          {"partlycloudy", "\U000F0595"},
+          {"partly-lightning", "\U000F0F32"},
+          {"partly-rainy", "\U000F0F33"},
+          {"pouring", "\U000F0596"},
+          {"rainy", "\U000F0597"},
+          {"sunny", "\U000F0599"},
+          {"sunny-alert", "\U000F0F37"},
+          {"sunny-off", "\U000F14E4"},
+          {"sunset", "\U000F059A"},
+          {"sunset-down", "\U000F059B"},
+          {"sunset-up", "\U000F059C"},
+          {"windy", "\U000F059D"},
+          {"windy-variant", "\U000F059E"},
+        };    
+      //background
+      it.image(0, 0, id(eink_pannel)); 
+      
+      //************************ TODAY ************************
+           
+      //month
+      it.strftime(20, 75, id(font_month),id(color_black), TextAlign::TOP_LEFT, "%b", id(ha_time).now());
+      
+      //day  
+      it.strftime(245, 62, id(font_day),id(color_black), TextAlign::TOP_CENTER, "%d", id(ha_time).now());      
+
+      //year
+      it.strftime(390, 93, id(font_year),id(color_black), TextAlign::TOP_CENTER, "%Y", id(ha_time).now()); 
+
+      //weekday
+      it.strftime(240, 170, id(font_weekday),id(color_black), TextAlign::TOP_CENTER, "%A", id(ha_time).now());
+      
+      //************************ TODAY WEATHER ************************
+      int today_temp_y=305;
+      //icon
+      it.printf(105, 310, id(icon_today),id(color_black), TextAlign::TOP_CENTER, "%s", weather_icon_map[id(today_weather).state.c_str()].c_str());
+      
+      //temperature
+      it.printf(285, today_temp_y, id(font_today_temp),id(color_black), TextAlign::TOP_LEFT, "%s", id(today_temperature).state.c_str());
+      
+      //humidity
+      it.printf(285, today_temp_y+80, id(font_today_temp),id(color_black), TextAlign::TOP_LEFT, "%s", id(today_humidity).state.c_str());
+      
+      //precipitation
+      it.printf(285, today_temp_y+160, id(font_today_temp),id(color_black), TextAlign::TOP_LEFT, "%s", id(today_precipitation).state.c_str());
+      
+      //************************ FORECAST ************************
+      int forecast_y=610;
+      int forecast_icon_gap=45;
+      int forecast_data_gap=130;
+      
+      //HOUR1
+      //weekday
+      it.printf(60, forecast_y, id(font_medium_bold),id(color_black), TextAlign::TOP_CENTER, "%s", id(forecast_weekday_1).state.c_str()); 
+      //icon
+      it.printf(60, forecast_y+forecast_icon_gap, id(icon_forecast),id(color_black), TextAlign::TOP_CENTER, "%s", weather_icon_map[id(forecast_weather_1).state.c_str()].c_str()); 
+      //temperature
+      it.printf(60, forecast_y+forecast_data_gap, id(font_medium_bold),id(color_black), TextAlign::TOP_CENTER, "%s", id(forecast_temperature_1).state.c_str()); 
+      
+       
+      //HOUR2
+      //weekday
+      it.printf(180, forecast_y, id(font_medium_bold),id(color_black), TextAlign::TOP_CENTER, "%s", id(forecast_weekday_2).state.c_str());  
+      //icon
+      it.printf(180, forecast_y+forecast_icon_gap, id(icon_forecast),id(color_black), TextAlign::TOP_CENTER, "%s", weather_icon_map[id(forecast_weather_2).state.c_str()].c_str()); 
+      //temperature
+      it.printf(183, forecast_y+forecast_data_gap, id(font_medium_bold),id(color_black), TextAlign::TOP_CENTER, "%s", id(forecast_temperature_2).state.c_str());  
+      
+      //HOUR3
+      //weekday
+      it.printf(300, forecast_y, id(font_medium_bold),id(color_black), TextAlign::TOP_CENTER, "%s", id(forecast_weekday_3).state.c_str());  
+      //icon
+      it.printf(300, forecast_y+forecast_icon_gap, id(icon_forecast),id(color_black), TextAlign::TOP_CENTER, "%s", weather_icon_map[id(forecast_weather_3).state.c_str()].c_str()); 
+      //temperature
+      it.printf(303, forecast_y+forecast_data_gap, id(font_medium_bold),id(color_black), TextAlign::TOP_CENTER, "%s", id(forecast_temperature_3).state.c_str());        
+      
+      
+      //HOUR4
+      //weekday
+      it.printf(425, forecast_y, id(font_medium_bold),id(color_black), TextAlign::TOP_CENTER, "%s", id(forecast_weekday_4).state.c_str());
+      //icon
+      it.printf(425, forecast_y+forecast_icon_gap, id(icon_forecast),id(color_black), TextAlign::TOP_CENTER, "%s", weather_icon_map[id(forecast_weather_4).state.c_str()].c_str());
+      //temperature
+      it.printf(425, forecast_y+forecast_data_gap, id(font_medium_bold),id(color_black), TextAlign::TOP_CENTER, "%s", id(forecast_temperature_4).state.c_str());       
+      
+      //last update time
+      it.strftime(2, 786, id(font_smallest),id(color_black), TextAlign::TOP_LEFT, "%m/%d %H:%M", id(ha_time).now());
