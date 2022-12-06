@@ -5,14 +5,14 @@
 
 另有橫式除了天氣資訊外，還能將個房間的溫濕度等資訊顯示在E-ink上: [E-ink Dashboard](https://github.com/xangin/esphome-eink-dashboard)
 
-<img src="https://user-images.githubusercontent.com/56766371/184495447-3c9c7ea9-0f64-442d-b695-d47738ba2d2d.jpg" width="66%" alt="Context"/>
+<img src="https://i.imgur.com/3Hk3BAW.jpg" width="66%" />
 
 直式天氣資訊板顯示內容包括:
 - 今天日期
 - 當下天氣預報
 - 未來四小時天氣預報
 
-<img src="https://user-images.githubusercontent.com/56766371/184495454-a9595013-f24a-4c55-b7f8-b29cdee5af32.jpg" width="66%" alt="Context"/>
+<img src="https://i.imgur.com/gmaCiZK.jpg" width="66%" />
 
 以下將說明硬體架構、ESPHome yaml code與Home assistant yaml code
 
@@ -59,33 +59,42 @@ time:
 ```
 
 
-### 根據來自HA的binary sensor來決定現在是否要更新面板，晚上睡覺無人時就不用更新以延長面板壽命
-
-```YAML
-binary_sensor:
-  - platform: homeassistant
-    id: 'eink_refresh'
-    entity_id: 'binary_sensor.eink_refresh_time'
-```
-
-
 ### 面板更新時機
 
 因為預設螢幕不會自動更新`update_interval: never`，是由HA內建自動化根據想要的間隔時間來按下更新面板按鈕
+
 自動化流程如下:
 
-#### 1. 等這個sensor有接收到資料後就執行腳本:  
+#### 1. 每隔多久時間觸發一次自動化:  
 
 ```YAML
-  - platform: homeassistant
-    entity_id: sensor.eink_sensors
-    attribute: forecast_temperature_4
-    id: forecast_temperature_4
-    on_value: 
-      then:
-        - script.execute: all_data_received 
+  trigger:
+    - platform: time_pattern     
+      # /2 表示每2個小時，要每小時就寫 /1
+      hours: "/2" 
+      # 1 表示在該小時的1分時執行，如06:01、08:01、10:01
+      minutes: 1
 ```
 
+#### 2. 條件:  
+
+```YAML
+  condition:
+    #在可更新的時段內才更新
+    - condition: state
+      entity_id: binary_sensor.eink_refresh_time
+      state: 'on'
+```
+
+#### 3. 動作:  
+
+```YAML
+   action:
+   #按下更新螢幕的按鈕，記得更換為自己的實體ID
+     - service: button.press
+       data:
+         entity_id: button.eink_weather_board_screen_refresh
+```
 
 ## HA template sensor 說明
 
