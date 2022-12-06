@@ -99,6 +99,11 @@ time:
          entity_id: button.eink_weather_board_screen_refresh
 ```
 
+自動化設定完記得至開發工具>YAML>檢查設定
+
+確定都對後在`YAML 設定新載入中`按下`自動化`重新載入自動化才會生效
+
+
 ## HA template sensor 說明
 
 **要先確認在已經將以下程式碼寫在`configuration.yaml`內，這樣`eink_dashboard_sensor.yaml`檔案放進去才會生效**
