@@ -2,7 +2,8 @@
 感謝[Madelena](https://github.com/Madelena/esphome-weatherman-dashboard/)提供本專案硬體架構與程式碼的發想
 
 本專案為直式的E-ink天氣預報資訊板放在玄關處，在指定的時段內每格固定，會自動更新顯示內容
-另有橫式除了天氣資訊外，還能將個房間的溫濕度等資訊顯示在E-ink板上 [E-ink Dashboard](https://github.com/xangin/esphome-eink-dashboard)
+
+另有橫式除了天氣資訊外，還能將個房間的溫濕度等資訊顯示在E-ink上: [E-ink Dashboard](https://github.com/xangin/esphome-eink-dashboard)
 
 <img src="https://user-images.githubusercontent.com/56766371/184495447-3c9c7ea9-0f64-442d-b695-d47738ba2d2d.jpg" width="66%" alt="Context"/>
 
