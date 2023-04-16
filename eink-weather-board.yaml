@@ -86,7 +86,10 @@ font:
       - "\U000F059C" # mdi-weather-sunset-up
       - "\U000F059D" # mdi-weather-windy
       - "\U000F059E" # mdi-weather-windy-variant
-  
+      - "\U000F0591" # mdi-weather-fog
+      - "\U000F0592" # mdi-weather-hail
+      - "\U000F0F30" # mdi-weather-hazy    
+
   #today temp
   - file: 'fonts/GothamRnd-Bold.ttf'
     id: font_today_temp
