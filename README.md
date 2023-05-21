@@ -1,4 +1,7 @@
 # ESPHome E-ink Weather board
+
+<a href="https://www.buymeacoffee.com/xangin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="30" width="130"></a>
+
 感謝[Madelena](https://github.com/Madelena/esphome-weatherman-dashboard/)提供本專案硬體架構與程式碼的發想
 
 Thanks [Madelena](https://github.com/Madelena/esphome-weatherman-dashboard/) for inspired this project ideas and source code of weather data
@@ -127,6 +130,5 @@ time:
 - 未來四小時的天氣圖示:  `forecast_condition_1`, `forecast_condition_2`, `forecast_condition_3`, `forecast_condition_4`
 - 未來四小時的氣溫:  `forecast_temperature_1`, `forecast_temperature_2`, `forecast_temperature_3`, `forecast_temperature_4`
 
-如果喜歡這個專案歡迎買杯咖啡給我:)
-
-<a href="https://www.buymeacoffee.com/xangin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="30" width="150"></a>
+## References
+- https://github.com/Madelena/esphome-weatherman-dashboard/
