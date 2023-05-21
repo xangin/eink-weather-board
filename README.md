@@ -1,5 +1,6 @@
 # ESPHome E-ink Weather board
 感謝[Madelena](https://github.com/Madelena/esphome-weatherman-dashboard/)提供本專案硬體架構與程式碼的發想
+
 Thanks [Madelena](https://github.com/Madelena/esphome-weatherman-dashboard/) for inspired this project ideas and source code of weather data
 
 本專案為直式的E-ink天氣預報資訊板放在玄關處，在指定的時段內每格固定，會自動更新顯示內容
