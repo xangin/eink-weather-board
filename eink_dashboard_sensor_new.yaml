@@ -28,9 +28,9 @@ template:
           today_temperature: >
             {{ forecast.forecast[0].temperature | round }}°C
           today_humidity: >
-            {{ forecast.forecast[0].humidity }}%
+            {{ forecast.forecast[0].humidity | round }}%
           today_precipitation: >
-            {{ forecast.forecast[0].precipitation }}%        
+            {{ forecast.forecast[0].precipitation | round }}%        
           
           forecast_weekday_1: >
             {{ as_timestamp(forecast.forecast[1].datetime) | timestamp_custom('%I') | int }}{{ as_timestamp(forecast.forecast[1].datetime) | timestamp_custom('%p') }}   
