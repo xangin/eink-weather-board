@@ -26,7 +26,7 @@ template:
           {{ forecast.forecast[0].condition }}
         attributes: 
           today_temperature: >
-            {{ forecast.forecast[0].temperature }}°C
+            {{ forecast.forecast[0].temperature | round }}°C
           today_humidity: >
             {{ forecast.forecast[0].humidity }}%
           today_precipitation: >
