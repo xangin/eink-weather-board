@@ -31,14 +31,15 @@ Thanks [Madelena](https://github.com/Madelena/esphome-weatherman-dashboard/) for
 
 1. 將`/fonts`資料夾內的檔案及`e-ink-weather-board.yaml`放到HA/config/esphome的資料夾內
 2. 將`eink_dashboard_sensor.yaml`放到HA/config/packages內
+    - **注意!** 如果你的HA版本在2023.9以上，由於修改了取得天氣預報的方式，請改用`eink_dashboard_sensor_new.yaml`舊方法將在2024.3後失效!
 3. 將`/images`內的`background.png`放到HA/config/esphome/images的資料夾內
-3. 將`e-ink-weather-board.yaml`及`eink_dashboard_sensor.yaml`的內容修改成自己HA裡的實體ID，**解說在下方**
-4. HA檢查YAML code有無錯誤
+4. 將`e-ink-weather-board.yaml`及`eink_dashboard_sensor.yaml`的內容修改成自己HA裡的實體ID，**解說在下方**
+5. HA檢查YAML code有無錯誤
     1. 開發工具>YAML>檢查設定內容，確認左下角通知沒有出現錯誤
     2. YAML 設定新載入中>模板實體
     3. 開發工具>狀態>檢查`sensor.eink_sensors`有確實出現，以及內容是自己想要的
-5. 在ESPhome將`e-ink-weather-board.yaml`燒錄至ESP32模組
-6. 完成!
+6. 在ESPhome將`e-ink-weather-board.yaml`燒錄至ESP32模組
+7. 完成!
 
 ## ESPHome yaml 說明
 
@@ -110,17 +111,39 @@ time:
 
 確定都對後在`YAML 設定新載入中`按下`自動化`重新載入自動化才會生效
 
+## HA template sensor 說明 _(新方法，適用HA 2023.9及之後的版本)_
 
-## HA template sensor 說明
-
-**要先確認在已經將以下程式碼寫在`configuration.yaml`內，這樣`eink_dashboard_sensor.yaml`檔案放進去才會生效**
+**要先確認在已經將以下程式碼寫在`configuration.yaml`內，這樣`eink_dashboard_sensor_new.yaml`檔案放進去才會生效**
 
 ![](https://user-images.githubusercontent.com/56766371/184566430-d2dff49b-38cd-4ddd-a775-eaadf7099fc1.png)
 
+在HA 2023.9之後，天氣預報改由呼叫service來取得未來的資訊，所以利用此template sensor將想要的資料格式化後再丟給天氣板顯示
 
-由於天氣預報是`weather`類型，非`sensor`類型，沒辦法直接丟給ESPHome處理，所以利用此template sensor
+由於預設是顯示取得每小時的預報，**請先確認目前用的天氣整合有支援小時預報 (內建的met.no有)**
 
-將想要的資料格式化後再丟給ESPHome顯示，`weather.myhome`是我用的天氣預報實體名稱，請記得更換成自己的ID
+以下YAML表示每小時的1分將會呼叫取得"每小時"的天氣預報服務，同時更新內容在sensor.eink_sensors裡面
+
+要注意更新面板的時機要在更新天氣預報之後，不然都會看到前一個小時的預報
+
+```YAML
+
+  - trigger:
+      - platform: time_pattern     
+        hours: "/1" 
+        minutes: 1
+    action:
+      - service: weather.get_forecast
+        target:
+          entity_id: weather.myhome #replace with your weather forecast entity id
+        data:
+          type: hourly
+        response_variable: forecast
+
+```
+
+會使用天氣預報回傳結果的第1組當作這小時的預報，並顯示第2~5組做未來每小時的預報
+
+新方法只需將`action`裡面的`entity_id`改成自己的天氣預報實體ID即可，比舊方法要改一堆來的方便!
 
 `attributes`是將要使用的資訊從天氣預報拆分成出來，分別是:
 - 這小時的氣溫:  `today_temperature`
@@ -129,6 +152,18 @@ time:
 - 未來四小時的時間:  `forecast_weekday_1`, `forecast_weekday_2`, `forecast_weekday_3`, `forecast_weekday_4`
 - 未來四小時的天氣圖示:  `forecast_condition_1`, `forecast_condition_2`, `forecast_condition_3`, `forecast_condition_4`
 - 未來四小時的氣溫:  `forecast_temperature_1`, `forecast_temperature_2`, `forecast_temperature_3`, `forecast_temperature_4`
+
+
+
+## HA template sensor 說明 _(舊方法，將在HA 2024.3之後失效)_
+
+**要先確認在已經將以下程式碼寫在`configuration.yaml`內，這樣`eink_dashboard_sensor.yaml`檔案放進去才會生效**
+
+由於天氣預報是`weather`類型，非`sensor`類型，沒辦法直接丟給ESPHome處理，所以利用此template sensor將想要的資料格式化後再丟給天氣板顯示
+
+
+`weather.myhome`是我用的天氣預報實體名稱，請記得更換成自己的ID
+
 
 ## References
 - https://github.com/Madelena/esphome-weatherman-dashboard/
