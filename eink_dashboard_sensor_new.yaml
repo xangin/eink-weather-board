@@ -1,7 +1,8 @@
 ###########################################################
 ##       
 ##       Weather Forecast Sensors
-##       !!Only for HA 2023.9.0 or later
+##       !!Only for HA 2023.12.0 or later
+##
 ###########################################################
 template:
   - trigger:
@@ -12,7 +13,7 @@ template:
         hours: "/1" 
         minutes: 1
     action:
-      - service: weather.get_forecast
+      - service: weather.get_forecasts
         target:
           entity_id: weather.myhome #replace with your weather forecast entity id
         data:
