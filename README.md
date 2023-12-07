@@ -31,7 +31,7 @@ Thanks [Madelena](https://github.com/Madelena/esphome-weatherman-dashboard/) for
 
 1. 將`/fonts`資料夾內的檔案及`e-ink-weather-board.yaml`放到HA/config/esphome的資料夾內
 2. 將`eink_dashboard_sensor.yaml`放到HA/config/packages內
-    - **注意!** 如果你的HA版本在2023.9以上，由於修改了取得天氣預報的方式，請改用`eink_dashboard_sensor_new.yaml`舊方法將在2024.3後失效!
+    - **注意!** 如果你的HA版本在2023.12以上，由於修改了取得天氣預報的方式，請改用`eink_dashboard_sensor_new.yaml`舊方法將在2024.3後失效!
 3. 將`/images`內的`background.png`放到HA/config/esphome/images的資料夾內
 4. 將`e-ink-weather-board.yaml`及`eink_dashboard_sensor.yaml`的內容修改成自己HA裡的實體ID，**解說在下方**
 5. HA檢查YAML code有無錯誤
@@ -111,7 +111,7 @@ time:
 
 確定都對後在`YAML 設定新載入中`按下`自動化`重新載入自動化才會生效
 
-## HA template sensor 說明 _(新方法，適用HA 2023.9及之後的版本)_
+## HA template sensor 說明 _(新方法，適用HA 2023.12及之後的版本)_
 
 **要先確認在已經將以下程式碼寫在`configuration.yaml`內，這樣`eink_dashboard_sensor_new.yaml`檔案放進去才會生效**
 
@@ -132,7 +132,7 @@ time:
         hours: "/1" 
         minutes: 1
     action:
-      - service: weather.get_forecast
+      - service: weather.get_forecasts
         target:
           entity_id: weather.myhome #replace with your weather forecast entity id
         data:
