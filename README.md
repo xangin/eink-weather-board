@@ -117,7 +117,7 @@ time:
 
 ![](https://user-images.githubusercontent.com/56766371/184566430-d2dff49b-38cd-4ddd-a775-eaadf7099fc1.png)
 
-在HA 2023.9之後，天氣預報改由呼叫service來取得未來的資訊，所以利用此template sensor將想要的資料格式化後再丟給天氣板顯示
+在HA 2023.12之後，天氣預報改由呼叫service來取得未來的資訊，所以利用此template sensor將想要的資料格式化後再丟給天氣板顯示
 
 由於預設是顯示取得每小時的預報，**請先確認目前用的天氣整合有支援小時預報 (內建的met.no有)**
 
@@ -137,13 +137,11 @@ time:
           entity_id: weather.myhome #replace with your weather forecast entity id
         data:
           type: hourly
-        response_variable: forecast
+        response_variable: hourly  
 
 ```
 
 會使用天氣預報回傳結果的第1組當作這小時的預報，並顯示第2~5組做未來每小時的預報
-
-新方法只需將`action`裡面的`entity_id`改成自己的天氣預報實體ID即可，比舊方法要改一堆來的方便!
 
 `attributes`是將要使用的資訊從天氣預報拆分成出來，分別是:
 - 這小時的氣溫:  `today_temperature`
