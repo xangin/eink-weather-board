@@ -18,7 +18,6 @@ template:
           entity_id: weather.myhome #replace with your weather forecast entity id
         data:
           type: hourly #make sure your weather entity support hourly forecast 
-        response_variable: forecast
     sensor: 
       - name: "eink_sensors"
         unique_id: eink_sensors 
