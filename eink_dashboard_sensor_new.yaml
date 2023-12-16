@@ -18,45 +18,47 @@ template:
           entity_id: weather.myhome #replace with your weather forecast entity id
         data:
           type: hourly #make sure your weather entity support hourly forecast 
+        response_variable: hourly      
     sensor: 
       - name: "eink_sensors"
         unique_id: eink_sensors 
         # use forecast[0] as this hour's weather condition
+        # replace below 'weather.myhome' with your weather forecast entity id
         state: >
-          {{ forecast.forecast[0].condition }}
+          {{ hourly['weather.myhome'].forecast[0].condition }}
         attributes: 
           today_temperature: >
-            {{ forecast.forecast[0].temperature | round }}°C
+            {{ hourly['weather.myhome'].forecast[0].temperature | round }}°C
           today_humidity: >
-            {{ forecast.forecast[0].humidity | round }}%
+            {{ hourly['weather.myhome'].forecast[0].humidity | round }}%
           today_precipitation: >
-            {{ forecast.forecast[0].precipitation | round }}%        
+            {{ hourly['weather.myhome'].forecast[0].precipitation | round }}%        
           
           forecast_weekday_1: >
-            {{ as_timestamp(forecast.forecast[1].datetime) | timestamp_custom('%I') | int }}{{ as_timestamp(forecast.forecast[1].datetime) | timestamp_custom('%p') }}   
+            {{ as_timestamp(hourly['weather.myhome'].forecast[1].datetime) | timestamp_custom('%I') | int }}{{ as_timestamp(hourly['weather.myhome'].forecast[1].datetime) | timestamp_custom('%p') }}   
           forecast_condition_1: >
-            {{ forecast.forecast[1].condition }}
+            {{ hourly['weather.myhome'].forecast[1].condition }}
           forecast_temperature_1: >
-            {{ forecast.forecast[1].temperature | round }}°
+            {{ hourly['weather.myhome'].forecast[1].temperature | round }}°
             
           forecast_weekday_2: >
-            {{ as_timestamp(forecast.forecast[2].datetime) | timestamp_custom('%I') | int }}{{ as_timestamp(forecast.forecast[2].datetime) | timestamp_custom('%p') }}   
+            {{ as_timestamp(hourly['weather.myhome'].forecast[2].datetime) | timestamp_custom('%I') | int }}{{ as_timestamp(hourly['weather.myhome'].forecast[2].datetime) | timestamp_custom('%p') }}   
           forecast_condition_2: >
-            {{ forecast.forecast[2].condition }}
+            {{ hourly['weather.myhome'].forecast[2].condition }}
           forecast_temperature_2: >
-            {{ forecast.forecast[2].temperature | round }}°
+            {{ hourly['weather.myhome'].forecast[2].temperature | round }}°
             
           forecast_weekday_3: >
-            {{ as_timestamp(forecast.forecast[3].datetime) | timestamp_custom('%I') | int }}{{ as_timestamp(forecast.forecast[3].datetime) | timestamp_custom('%p') }}   
+            {{ as_timestamp(hourly['weather.myhome'].forecast[3].datetime) | timestamp_custom('%I') | int }}{{ as_timestamp(hourly['weather.myhome'].forecast[3].datetime) | timestamp_custom('%p') }}   
           forecast_condition_3: >
-            {{ forecast.forecast[3].condition }}
+            {{ hourly['weather.myhome'].forecast[3].condition }}
           forecast_temperature_3: >
-            {{ forecast.forecast[3].temperature | round }}°
+            {{ hourly['weather.myhome'].forecast[3].temperature | round }}°
 
           forecast_weekday_4: >
-            {{ as_timestamp(forecast.forecast[4].datetime) | timestamp_custom('%I') | int }}{{ as_timestamp(forecast.forecast[4].datetime) | timestamp_custom('%p') }}   
+            {{ as_timestamp(hourly['weather.myhome'].forecast[4].datetime) | timestamp_custom('%I') | int }}{{ as_timestamp(hourly['weather.myhome'].forecast[4].datetime) | timestamp_custom('%p') }}   
           forecast_condition_4: >
-            {{ forecast.forecast[4].condition }}
+            {{ hourly['weather.myhome'].forecast[4].condition }}
           forecast_temperature_4: >
-            {{ forecast.forecast[4].temperature | round }}°
+            {{ hourly['weather.myhome'].forecast[4].temperature | round }}°
             
