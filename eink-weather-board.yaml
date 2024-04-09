@@ -62,7 +62,7 @@ font:
        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
        's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ']  
 
-  - file: 'fonts/materialdesignicons-webfont.ttf'
+  - file: 'fonts/materialdesigniconswebfont.ttf'
     id: icon_today
     size: 220
     glyphs: &mdi-weather-glyphs
@@ -105,7 +105,7 @@ font:
       ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '°', 'A', 'M', 'P']
   
   #forecast icon
-  - file: 'fonts/materialdesignicons-webfont.ttf'
+  - file: 'fonts/materialdesigniconswebfont.ttf'
     id: icon_forecast
     size: 70
     glyphs: *mdi-weather-glyphs
