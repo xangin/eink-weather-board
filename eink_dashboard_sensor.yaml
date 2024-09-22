@@ -32,7 +32,7 @@ template:
           today_humidity: >
             {{ hourly['weather.myhome'].forecast[0].humidity | round }}%
           today_precipitation: >
-            {{ hourly['weather.myhome'].forecast[0].precipitation | round }}%        
+            {{ hourly['weather.myhome'].forecast[0].precipitation_probability | round }}%        
           
           forecast_weekday_1: >
             {{ as_timestamp(hourly['weather.myhome'].forecast[1].datetime) | timestamp_custom('%I') | int }}{{ as_timestamp(hourly['weather.myhome'].forecast[1].datetime) | timestamp_custom('%p') }}   
