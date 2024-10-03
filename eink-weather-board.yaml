@@ -14,8 +14,8 @@ logger:
 api:
 
 ota:
-  #remeber add ota_password in your secret.yaml
-  password: !secret ota_password
+  - platform: esphome 
+    password: !secret ota_password #remeber add ota_password in your secret.yaml
 
 wifi:
   networks:
