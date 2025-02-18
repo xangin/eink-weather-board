@@ -2,6 +2,8 @@
 
 <a href="https://www.buymeacoffee.com/xangin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="30" width="130"></a>
 
+English | [正體中文](https://github.com/xangin/eink-weather-board/blob/main/README_zh-tw.md)
+
 Thanks to [Madelena](https://github.com/Madelena/esphome-weatherman-dashboard/) for inspiring this project and providing the source code for weather data.
 
 This project is a vertical E-ink weather forecast board placed at the entrance, automatically updating and displaying content at specified intervals.
