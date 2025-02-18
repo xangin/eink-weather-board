@@ -24,6 +24,7 @@ template:
         unique_id: eink_sensors 
         # use forecast[0] as this hour's weather condition
         # replace below 'weather.myhome' with your weather forecast entity id
+        # The today_precipitation field should be populated based on the attribute name provided by the weather forecast service.
         state: >
           {{ hourly['weather.myhome'].forecast[0].condition }}
         attributes: 
