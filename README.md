@@ -31,7 +31,7 @@ Below are the hardware structure, ESPHome yaml code, and Home assistant yaml cod
 
 1. Place the files in the `/fonts` folder and `e-ink-weather-board.yaml`in the HA/config/esphome folder.
 2. Place `eink_dashboard_sensor.yaml` in the HA/config/packages folder.
-3. PPlace `background.png` from the `/images` folder in the HA/config/esphome/images folder.
+3. Place `background.png` from the `/images` folder in the HA/config/esphome/images folder.
 4. Modify `e-ink-weather-board.yaml` and `eink_dashboard_sensor.yaml` to match your HA entity IDs. **Instructions are below**
 5. Check for YAML code errors in HA.
    1. Developer Tools > YAML > Check Configuration, ensure no errors in the bottom left notification.
