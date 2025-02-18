@@ -106,8 +106,6 @@ Set the update period in HA > Settings > Devices & Services > Helpers > Add Help
          entity_id: button.eink_weather_board_screen_refresh
 ```
 
-自動化設定完記得至開發工具>YAML>檢查設定
-
 Remember to check the configuration in Developer Tools > YAML > Check Configuration.
 
 Once everything is correct, reload the automation in YAML Configuration Reloading > Automation.
