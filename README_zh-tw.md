@@ -2,6 +2,8 @@
 
 <a href="https://www.buymeacoffee.com/xangin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="30" width="130"></a>
 
+[English](https://github.com/xangin/eink-weather-board/blob/main/README.md) | 正體中文
+
 感謝[Madelena](https://github.com/Madelena/esphome-weatherman-dashboard/)提供本專案硬體架構與程式碼的發想
 
 Thanks [Madelena](https://github.com/Madelena/esphome-weatherman-dashboard/) for inspired this project ideas and source code of weather data
