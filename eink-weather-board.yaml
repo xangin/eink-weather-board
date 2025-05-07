@@ -1,11 +1,11 @@
 substitutions:
   device_name: eink-weather-board
 
+esp32:
+  board: esp32dev
+  
 esphome:
   name: eink-weather-board
-  platform: ESP32
-  board: esp32dev
-
 
 # Enable logging
 logger:
